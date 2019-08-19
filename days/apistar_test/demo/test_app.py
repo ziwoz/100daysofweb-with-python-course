@@ -1,6 +1,9 @@
 from apistar import test
 
-from app import app, cars, CAR_NOT_FOUND
+from apistar_test.demo.app import app, cars, CAR_NOT_FOUND
+
+if app:
+    print('Got the environment right')
 
 client = test.TestClient(app)
 
@@ -153,3 +156,5 @@ def test_delete_car():
         assert response.status_code == 404  # car gone
 
     assert len(cars) == car_count - 3
+
+

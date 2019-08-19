@@ -5,8 +5,6 @@ from apistar import App, Route, types, validators
 from apistar.http import JSONResponse
 
 
-# helpers
-
 def _load_cars_data():
     with open('cars.json') as f:
         cars = json.loads(f.read())
@@ -18,10 +16,8 @@ VALID_MANUFACTURERS = set([car["manufacturer"]
                           for car in cars.values()])
 CAR_NOT_FOUND = 'Car not found'
 
-# definition
 
-
-class Car(types.Type):
+class Car(types.Type):  # why is the types used here?
     id = validators.Integer(allow_null=True)  # assign in POST
     manufacturer = validators.String(enum=list(VALID_MANUFACTURERS))
     model = validators.String(max_length=50)
@@ -39,7 +35,7 @@ def create_car(car: Car) -> JSONResponse:
     car_id = max(cars.keys())+1
     car.id = car_id
     cars[car_id] = car
-    return JSONResponse(Car(car), status_code=201)
+    return JSONResponse(Car(car), status_code=201)  # code 201, Created
 
 
 def get_car(car_id: int) -> JSONResponse:
@@ -58,16 +54,16 @@ def update_car(car_id: int, car: Car) -> JSONResponse:
 
     car.id = car_id
     cars[car_id] = car
-    return JSONResponse(Car(car), status_code=200)
+    return JSONResponse(Car(car), status_code=200)  # code 200, OK
 
 
 def delete_car(car_id: int) -> JSONResponse:
     if not cars.get(car_id):
         error = {'error': CAR_NOT_FOUND}
-        return JSONResponse(error, status_code=404)
+        return JSONResponse(error, status_code=404)  # code 404, cannot be found
 
     del cars[car_id]
-    return JSONResponse({}, status_code=204)
+    return JSONResponse({}, status_code=204)  # code 204, content not available
 
 
 routes = [
