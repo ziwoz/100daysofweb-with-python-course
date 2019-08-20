@@ -24,8 +24,8 @@ class Car(types.Type):  # why is the types used here?
     year = validators.Integer(minimum=1900, maximum=2050)
     vin = validators.String(max_length=50, default='')
 
-
 # API methods
+
 
 def list_cars() -> List[Car]:
     return [Car(car[1]) for car in sorted(cars.items())]

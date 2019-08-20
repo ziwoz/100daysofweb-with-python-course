@@ -1,9 +1,9 @@
+
+
 from apistar import test
 
 from apistar_test.demo.app import app, cars, CAR_NOT_FOUND
 
-if app:
-    print('Got the environment right')
 
 client = test.TestClient(app)
 
@@ -79,7 +79,7 @@ def test_create_car_missing_fields():
 
 def test_create_car_field_validation():
     data = {'manufacturer': 'Opel',
-            'model': 'x'*51,
+            'model': 'x' * 51,
             'year': 2051}
     response = client.post('/', data=data)
     assert response.status_code == 400
@@ -106,7 +106,7 @@ def test_get_car_notfound():
     assert response.json() == {'error': CAR_NOT_FOUND}
 
 
-def test_update_car():
+def test_update_car():  # the put request should change only the changes and ignore the rest of the variables
     data = {'manufacturer': 'Honda',
             'model': 'some_model',
             'year': 2018}
