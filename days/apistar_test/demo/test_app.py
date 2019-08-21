@@ -4,7 +4,6 @@ from apistar import test
 
 from apistar_test.demo.app import app, cars, CAR_NOT_FOUND
 
-
 client = test.TestClient(app)
 
 
