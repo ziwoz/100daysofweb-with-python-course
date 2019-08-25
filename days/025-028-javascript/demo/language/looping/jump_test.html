@@ -1,0 +1,47 @@
+<body>
+    <h1>Title</h1>
+    <p>This is a paragraph. Well, kind of.</p>
+    <form action="/action_page.php">
+        First name: <input type="text" id="please" name="FirstName" value=""><br>
+        <input type="button" value="cube" onclick="veruppikkal()"/>  
+        </form>
+  </body>
+
+  <script>
+  // Creating a div element
+function create_elem(i){
+        var divElement = document.createElement("Div");
+        // Adding a paragraph to it
+        var paragraph = document.createElement("P");
+        var text = document.createTextNode("from the code "+ i);
+        paragraph.appendChild(text);
+        divElement.appendChild(paragraph);
+        // Appending the div element to body
+        document.getElementsByTagName("body")[0].appendChild(divElement);
+    }
+
+function my_box(){
+    var divElement = document.createElement("Div");
+    // Adding a paragraph to it
+    var paragraph = document.createElement("P");
+    var text = document.createTextNode("from the box ");
+    paragraph.appendChild(text);
+    divElement.appendChild(paragraph);
+    // Appending the div element to body
+    document.getElementsByTagName("body")[0].appendChild(divElement);
+}
+// for(i=0; i<10; i++){
+//         create_elem(i);
+function veruppikkal(){
+        var the_input = document.getElementById('please').value;
+        if(parseInt(the_input) == 10){
+            for(i=0; i<the_input; i++){
+                my_box();
+            }
+            }
+        else{
+                alert(the_input);
+            }
+    }
+    // }
+</script>
