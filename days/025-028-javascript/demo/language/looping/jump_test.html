@@ -2,7 +2,7 @@
     <h1>Title</h1>
     <p>This is a paragraph. Well, kind of.</p>
     <form action="/action_page.php">
-        First name: <input type="text" id="please" name="FirstName" value=""><br>
+        First name: <input type="number" id="please" name="FirstName" value=""><br>
         <input type="button" value="cube" onclick="veruppikkal()"/>  
         </form>
 </body>
@@ -18,24 +18,32 @@ function create_elem(i){
     document.getElementsByTagName("body")[0].appendChild(divElement);
     }
 
-function my_box(){
+function my_box(id){
     var divElement = document.createElement("Div");
-    var paragraph = document.createElement("P");
-    var text = document.createTextNode("from the box ");
-    paragraph.appendChild(text);
-    divElement.appendChild(paragraph);
+    // var paragraph = document.createElement("P");
+    // var text = document.createTextNode("from the box "+ x);
+    // paragraph.appendChild(text);
+    // divElement.appendChild(paragraph);
+    var input_field = document.createElement('form');
+    input_field.setAttribute('method', 'post');
+    input_field.setAttribute('action', '#');
+    input_field.setAttribute('id', id);
+
+    divElement.appendChild(input_field)
+
+    var input1 = document.createElement('input');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('value', 'username');
+
+    input_field.appendChild(input1);
+
     document.getElementsByTagName("body")[0].appendChild(divElement);
     }
 
 function veruppikkal(){
     var the_input = document.getElementById('please').value;
-    if(parseInt(the_input) == 10){
-        for(i=0; i<the_input; i++){
-            my_box();
-            }
-        }
-    else{
-        alert(the_input);
+    for(i=0; i<the_input; i++){
+        my_box(i);
         }
     }
 
