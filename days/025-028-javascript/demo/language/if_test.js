@@ -4,7 +4,7 @@ for(i=0; i<100; i++){
     range_list.push(i);
 }
 
-// console.log(range_list);
+// console.log(range_list); another testing inside the if test
 
 for(age of range_list){
     if(age<18){
