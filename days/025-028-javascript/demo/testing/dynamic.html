@@ -1,0 +1,43 @@
+<html>
+<head>
+   <title>Dynamic Testing</title>
+   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+</head>
+ 
+<body>
+   <div class="element-wrapper">
+       <div class="row">
+           <!-- create input -->
+           <input type="text" placeholder="Your name"/>
+           <!-- create a button to remove -->
+           <button class="btn-remove-row">Remove Row</button>
+       </div>
+   </div>
+<div>
+
+
+   <!-- create new button -->
+   <button class="btn-add-row">Add New</button>
+   <script type="text/javascript">
+
+
+
+   $('.btn-add-row').click(function() {
+        var row = $(".row").eq(0).clone().find("input[type='text']").val("").end();
+        $(".element-wrapper").append(row);
+        });
+
+   $('btn-remove-row').click(function(){
+        var index = $(".btn-remove-row").index(this);
+        $(".row").eq(index).remove();
+        });
+
+
+ 
+ 
+   </script>
+</div>
+</body>
+ 
+ 
+</html>

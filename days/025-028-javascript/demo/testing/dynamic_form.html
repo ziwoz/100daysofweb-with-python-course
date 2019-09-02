@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+   <title>Dynamic form</title>
+   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+ 
+</head>
+ 
+<body>
+   <form action="#">
+       <div class="form-control">
+           <label for="first">First Input</label>
+           <input type="text" id="id1" class="input1" value="123">
+       </div>
+ 
+       <div class="form-control">
+           <label for="second">Second Input</label>
+           <input type="text" id="id2" class="input1" value="werf">
+       </div>
+ 
+ 
+       <button type="submit" id="form_button">Enter Here</button>
+   </form>
+</body>
+ 
+<script>
+ 
+   // create the object from the inputs
+ 
+   $('#form_button1').click(function () {
+       var out1 = $('#id1').val();
+       var out2 = $('#id2').val();
+       var out3 = $('#id3').val();
+ 
+       var out_obj = {};
+       out_obj.a = out1;
+       out_obj.b = out2;
+       out_obj.c = out3;
+ 
+       json_out = JSON.stringify(out_obj);
+       alert(json_out);
+ 
+   });
+ 
+   // take the value from the html
+   $('#form_button').click(function(){
+       var all_text = document.getElementsByClassName('input1');
+       var obj_out = {};
+       obj_out.a = [];
+ 
+       for(tex of all_text){
+           obj_out.a.push(tex.value);
+       };
+ 
+       json_out = JSON.stringify(obj_out)
+       console.log(json_out)
+   });
+ 
+</script>
+ 
+</html>
