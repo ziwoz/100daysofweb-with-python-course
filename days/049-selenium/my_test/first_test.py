@@ -4,6 +4,7 @@ from time import sleep
 
 # create a new Firefox session
 driver = webdriver.Firefox()
+# driver = webdriver.Chrome('/usr/test/chromedriver')
 # driver.implicitly_wait(1)
 driver.maximize_window()
 

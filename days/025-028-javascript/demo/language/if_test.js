@@ -4,7 +4,7 @@ for(i=0; i<100; i++){
     range_list.push(i);
 }
 
-// console.log(range_list); another testing inside the if test
+// console.log(range_list); another testing inside the if test, and this went from VS code, now what about that. please
 
 for(age of range_list){
     if(age<18){
