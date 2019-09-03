@@ -1,5 +1,6 @@
 import time
+import sys
 for i in range(10):
-    print('this is ridiculous')
+    print(sys.executable)
     time.sleep(1)
 

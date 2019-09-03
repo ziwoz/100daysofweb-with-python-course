@@ -10,27 +10,54 @@
 
     <form class="form-horizontal" action="{{ url_for('device.device')}}" method="post">
         <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name">Name:</label>
+            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name"><h1>Class Name:</h1></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="name" id="name" placeholder="Hostname" required>
+                <input type="text" class="form-control" name="class_name" id="class_name" placeholder="Class Name"
+                    required>
             </div>
         </div>
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="mgmt">Management IP</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="mgmt" id="mgmt" placeholder="Management IP" required>
+
+        <div id="profile_parent" class="profile_parent"> <h1>Profiles</h1>
+
+            <div>
+                <button type="button" id="prof_add_button">Add New</button>
             </div>
-        </div>
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="location">Location</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="location" id="location" placeholder="location">
+
+            <div class="profile_child" id="profile_child" style="padding-bottom: 30px;" >
+                <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                    for="profile_name">Profile Name</label>
+
+                <div class="form-control" id="profile_grand_child" class="profile_grand_child">
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="profile_name" id="profile_name"
+                            placeholder="Profile_name" required>
+                    </div>
+
+                    <div>
+                        <!-- <div>something here</div> -->
+                        <button type="button" id="prof_value_add">Add Value</button>
+                    </div>
+
+                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                        for="profile_value">Profile Value</label>
+                    <div class="col-sm-10" id="profile_value">
+                        <input type="text" class="form-control" name="profile_value" id="profile_value"
+                            placeholder="Profile_value" required>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
+
+
         <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="wan_info">Wan Info</label>
+            <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                for="attributes"><h1>attributes</h1></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="wan_info" id="wan_info" placeholder="WAN Info">
+                <input type="text" class="form-control" name="attributes" id="attributes" placeholder="attributes">
             </div>
         </div>
 
@@ -38,7 +65,7 @@
 
         <div id="parent">
             <div class="ssh_rest">
-                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="cli">CLI Type</label>
+                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="cli"><h1>CLI Type</h1></label>
                 <div class="col-sm-10">
                     <select class="form-control" id="cli" name="cli">
                         <option value="ssh">SSH</option>
@@ -62,37 +89,6 @@
         <button type="button" id="add_me">Press to Add</button>
 
 
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="username">User Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="username" id="username" placeholder="UserName">
-            </div>
-        </div>
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="password">Password</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="password" id="password" placeholder="password">
-            </div>
-        </div>
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="api_username">API User
-                Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="api_username" id="api_username"
-                    placeholder="API UserName">
-            </div>
-        </div>
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="notes">Notes</label>
-            <div class="col-sm-10">
-                <textarea style="height: 200px; width:100%" name="notes" id="notes" placeholder="Notes.."></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">ADD</button>
-            </div>
-        </div>
     </form>
 
 
@@ -110,6 +106,44 @@
     $('btn-remove-row').click(function () {
         var index = $(".btn-remove-row").index(this);
         $(".form-control-1").eq(index).remove();
+    });
+
+    $('#prof_add_button').click(function () {
+        console.log('the button is pressed');
+        var profile_box = $('#profile_child').clone(true).show();
+        $('#profile_parent').append(profile_box);
+
+    });
+
+    $('#prof_value_add').click(function(){
+        console.log('going for a new value entry here');
+        // var profile_index = $('#prof_value_add').index(this);
+        var profile_value_box = $('#profile_value').clone();
+        var this_elem = $(this);
+        // var my_parent = this_elem.parent().parent().attr('id');
+
+
+        // var my_parent = this_elem.parent().parent();
+        // var my_grand_parent = this_elem.parent().parent().parent();
+        // var my_index = my_parent.index(my_grand_parent);
+
+        // the_index = $(this).parent().parent().parent().prevAll().length;
+        the_index = $(this).parent().parent().parent().prevAll().length;
+
+        // all_profiles = document.getElementsByClassName("profile_grand_child");
+        all_profiles = document.getElementsByClassName("profile_child");
+
+        // for(profiles of all_profiles){
+        //     console.log(profiles);
+        //     console.log(all_profiles.item(1));
+        // };
+
+
+        // the_index = $(this).parent().parent().parent().parent().parent().attr('class');
+        
+        console.log('the index for this profile is '+ the_index);
+        $('.profile_child').eq(the_index-1).append(profile_value_box);
+        // $('.profile_child').eq(3).remove();
     });
 
 
