@@ -7,7 +7,6 @@
 
 <body>
 
-
     <form class="form-horizontal" method="post">
         <div class="form-group">
             <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name">
@@ -15,7 +14,7 @@
             </label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="class_name" id="class_name" placeholder="Class Name"
-                    required>
+                    required value='class name here'>
             </div>
         </div>
 
@@ -52,21 +51,19 @@
             </div>
         </div>
 
-
         <div class="attribute_parent">
             <h1>Attributes</h1>
             <button type="button" id="attribute_add">Add Attr</button>
             <div class="attribute_child" id="attribute_child" style="margin-top: 15px; margin-bottom: 15px">
                 <div>
-                    <label style="text-align: left; width:15%"
-                        for="attribute_name">Attribute Name</label>
-                    <input style="text-align: left; width:15%" type="text" name="attribute_name"
-                        class="attribute_name" placeholder="attribute name" value="testing">
+                    <label style="text-align: left; width:15%" for="attribute_name">Attribute Name</label>
+                    <input style="text-align: left; width:15%" type="text" name="attribute_name" class="attribute_name"
+                        placeholder="attribute name" value="testing">
                 </div>
                 <div>
                     <label style="text-align: left; width:15%" class="control-label col-sm-2"
                         for="attribute_type">Attribute Type</label>
-                    <select class="form-control" id="cli" name="cli">
+                    <select class="attribute_type" name="cli">
                         <option value="text">text</option>
                         <option value="number">number</option>
                         <option value='dropdown'>dropdown</option>
@@ -77,32 +74,25 @@
                 </div>
                 <div>
                     <label style="text-align: left; width:15%" class="control-label col-sm-2"
-                        for="attribute_type">Default Value</label>
-                    <input style="text-align: left; width:15%" type="text" class="form-control" name="attribute_default"
-                        class="attributes_default" placeholder="default value">
+                        for="attribute_default">Default Value</label>
+                    <input style="text-align: left; width:15%" type="text" name="attribute_default"
+                        class="attribute_default" placeholder="default value" value='something'>
                 </div>
                 <div>
-                        <label style="text-align: left; width:15%" class="control-label" for="rest_api">display</label>
-    
-                        <input type="checkbox" name='display' value='display'>
-    
-                    </div>
+                    <label style="text-align: left; width:15%" class="control-label"
+                        for="attribute_display">display</label>
+
+                    <input type="checkbox" name='attribute_display' class='attribute_display' value='display'>
+                </div>
             </div>
         </div>
 
-
-
-<button type="submit" id='class_builder_submit'>submit Form</button>
-
+        <button type="submit" id='class_builder_submit'>submit Form</button>
 
     </form>
 
-
-
 </body>
 <script type="text/javascript">
-
-
 
     $('#add_me').click(function () {
         var row = $(".ssh_rest").eq(0).clone().find("input[type='text']").val("").end();
@@ -115,41 +105,18 @@
     });
 
     $('#prof_add_button').click(function () {
-        console.log('the button is pressed');
         var profile_box = $('#profile_child').clone(true).find("input[type='text']").val("").end();
         $('#profile_parent').append(profile_box);
 
     });
 
     $('#prof_value_add').click(function () {
-        console.log('going for a new value entry here');
-        // var profile_index = $('#prof_value_add').index(this);
         var profile_value_box = $('#profile_value').clone().find("input[type='text']").val("").end();
         var this_elem = $(this);
-        // var my_parent = this_elem.parent().parent().attr('id');
-
-
-        // var my_parent = this_elem.parent().parent();
-        // var my_grand_parent = this_elem.parent().parent().parent();
-        // var my_index = my_parent.index(my_grand_parent);
-
-        // the_index = $(this).parent().parent().parent().prevAll().length;
         the_index = $(this).parent().parent().parent().prevAll().length;
-
-        // all_profiles = document.getElementsByClassName("profile_grand_child");
         all_profiles = document.getElementsByClassName("profile_child");
-
-        // for(profiles of all_profiles){
-        //     console.log(profiles);
-        //     console.log(all_profiles.item(1));
-        // };
-
-
-        // the_index = $(this).parent().parent().parent().parent().parent().attr('class');
-
         console.log('the index for this profile is ' + the_index);
         $('.profile_child').eq(the_index - 2).append(profile_value_box);
-        // $('.profile_child').eq(3).remove();
     });
 
 
@@ -160,25 +127,39 @@
 
     });
 
-    $('#class_builder_submit').click(function(){
+    $('#class_builder_submit').click(function () {
         console.log('form is submitted');
+        var class_name = document.getElementById('class_name');
+
+        // getting attribute details
+
+        var attributes_list = [];
         var all_attributes = document.getElementsByClassName('attribute_child');
-        for(attribute of all_attributes){
-            // attribute_name = attribute.getElementsByClassName('attribute_name');
-            // var attribute_name = attribute.class;
-            var inputs = attribute.getElementsByClassName('attribute_name');
 
-// the following worked and got the input dont touch it
-            // console.log(inputs[0].value)
+        for (attribute of all_attributes) {
 
-            console.log(inputs)
+            attribute_dict = {};
+
+            var attribute_name = attribute.getElementsByClassName('attribute_name')[0].value;
+            var attribute_type = attribute.getElementsByClassName('attribute_type')[0].value;
+            var attribute_default = attribute.getElementsByClassName('attribute_default')[0].value;
+            var attribute_display = attribute.getElementsByClassName('attribute_display')[0].value;
+
+            attribute_dict.attribute_name = attribute_name;
+            attribute_dict.attribute_type = attribute_type;
+            attribute_dict.attribute_default = attribute_default;
+            attribute_dict.attribute_display = attribute_display;
+
+            attributes_list.push(attribute_dict);
 
         };
+        json_out = JSON.stringify(attributes_list)
+
+        console.log(class_name.value);
+
+        // getting profile details 
 
     });
-
-
-
 
 </script>
 
