@@ -8,7 +8,7 @@
 <body>
 
 
-    <form class="form-horizontal" action="{{ url_for('device.device')}}" method="post">
+    <form class="form-horizontal" method="post">
         <div class="form-group">
             <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name">
                 <h1>Class Name:</h1>
@@ -56,11 +56,11 @@
         <div class="attribute_parent">
             <h1>Attributes</h1>
             <button type="button" id="attribute_add">Add Attr</button>
-            <div class="attribute_child " id="attribute_child" style="margin-top: 15px; margin-bottom: 15px">
+            <div class="attribute_child" id="attribute_child" style="margin-top: 15px; margin-bottom: 15px">
                 <div>
-                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                    <label style="text-align: left; width:15%" class="attribute_name"
                         for="attribute_name">Attribute Name</label>
-                    <input style="text-align: left; width:15%" type="text" class="form-control" name="attribute_name"
+                    <input style="text-align: left; width:15%" type="text" name="attribute_name"
                         class="attribute_name" placeholder="attribute name">
                 </div>
                 <div>
@@ -92,7 +92,7 @@
 
 
 
-
+<button type="submit" id='class_builder_submit'>submit Form</button>
 
 
     </form>
@@ -155,19 +155,19 @@
 
     $('#attribute_add').click(function () {
         console.log('attribute add pressed');
-
         var attribute_box = $('#attribute_child').clone();
-        // var this_elem = $(this);
-
-
-        // the_index = $(this).parent().parent().parent().prevAll().length;
-
-        // all_profiles = document.getElementsByClassName("profile_child");
-
-
-        // console.log('the index for this profile is ' + the_index);
-        // $('.profile_child').eq(the_index - 2).append(profile_value_box);
         $('.attribute_parent').append(attribute_box);
+
+    });
+
+    $('#class_builder_submit').click(function(){
+        console.log('form is submitted');
+        var all_attributes = document.getElementsByClassName('attribute_child');
+        for(attribute of all_attributes){
+            attribute_name = attribute.getElementsByClassName('attribute_name')
+            console.log(attribute_name);
+
+        };
 
     });
 
