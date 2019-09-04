@@ -10,22 +10,25 @@
 
     <form class="form-horizontal" action="{{ url_for('device.device')}}" method="post">
         <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name"><h1>Class Name:</h1></label>
+            <label style="text-align: left; width:15%" class="control-label col-sm-2" for="name">
+                <h1>Class Name:</h1>
+            </label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="class_name" id="class_name" placeholder="Class Name"
                     required>
             </div>
         </div>
 
-        <div id="profile_parent" class="profile_parent"> <h1>Profiles</h1>
+        <div id="profile_parent" class="profile_parent">
+            <h1>Profiles</h1>
 
             <div>
                 <button type="button" id="prof_add_button">Add New</button>
             </div>
 
-            <div class="profile_child" id="profile_child" style="padding-bottom: 30px;" >
-                <label style="text-align: left; width:15%" class="control-label col-sm-2"
-                    for="profile_name">Profile Name</label>
+            <div class="profile_child" id="profile_child" style="padding-bottom: 15px; padding-top: 15px;">
+                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="profile_name">Profile
+                    Name</label>
 
                 <div class="form-control" id="profile_grand_child" class="profile_grand_child">
 
@@ -35,7 +38,6 @@
                     </div>
 
                     <div>
-                        <!-- <div>something here</div> -->
                         <button type="button" id="prof_value_add">Add Value</button>
                     </div>
 
@@ -47,46 +49,50 @@
                     </div>
 
                 </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="form-group">
-            <label style="text-align: left; width:15%" class="control-label col-sm-2"
-                for="attributes"><h1>attributes</h1></label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="attributes" id="attributes" placeholder="attributes">
             </div>
         </div>
 
 
-
-        <div id="parent">
-            <div class="ssh_rest">
-                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="cli"><h1>CLI Type</h1></label>
-                <div class="col-sm-10">
+        <div class="attribute_parent">
+            <h1>Attributes</h1>
+            <button type="button" id="attribute_add">Add Attr</button>
+            <div class="attribute_child " id="attribute_child" style="margin-top: 15px; margin-bottom: 15px">
+                <div>
+                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                        for="attribute_name">Attribute Name</label>
+                    <input style="text-align: left; width:15%" type="text" class="form-control" name="attribute_name"
+                        class="attribute_name" placeholder="attribute name">
+                </div>
+                <div>
+                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                        for="attribute_type">Attribute Type</label>
                     <select class="form-control" id="cli" name="cli">
-                        <option value="ssh">SSH</option>
-                        <option value="telnet">Telnet</option>
-                        <option value=''>None</option>
+                        <option value="text">text</option>
+                        <option value="number">number</option>
+                        <option value='dropdown'>dropdown</option>
+                        <option value='date'>date</option>
+                        <option value='date'>time</option>
+                        <option value='date'>datetime</option>
                     </select>
                 </div>
-
-
-
-                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="rest_api">Rest
-                    Api</label>
-                <div class="col-sm-10">
-                    <select class="form-control" id="rest_api" name="rest_api">
-                        <option value=''>None</option>
-                        <option value="yes">YES</option>
-                    </select>
+                <div>
+                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
+                        for="attribute_type">Default Value</label>
+                    <input style="text-align: left; width:15%" type="text" class="form-control" name="attribute_default"
+                        class="attributes_default" placeholder="default value">
                 </div>
+                <div>
+                        <label style="text-align: left; width:15%" class="control-label" for="rest_api">display</label>
+    
+                        <input type="checkbox" name='display' value='display'>
+    
+                    </div>
             </div>
         </div>
-        <button type="button" id="add_me">Press to Add</button>
+
+
+
+
 
 
     </form>
@@ -110,15 +116,15 @@
 
     $('#prof_add_button').click(function () {
         console.log('the button is pressed');
-        var profile_box = $('#profile_child').clone(true).show();
+        var profile_box = $('#profile_child').clone(true).find("input[type='text']").val("").end();
         $('#profile_parent').append(profile_box);
 
     });
 
-    $('#prof_value_add').click(function(){
+    $('#prof_value_add').click(function () {
         console.log('going for a new value entry here');
         // var profile_index = $('#prof_value_add').index(this);
-        var profile_value_box = $('#profile_value').clone();
+        var profile_value_box = $('#profile_value').clone().find("input[type='text']").val("").end();
         var this_elem = $(this);
         // var my_parent = this_elem.parent().parent().attr('id');
 
@@ -140,10 +146,29 @@
 
 
         // the_index = $(this).parent().parent().parent().parent().parent().attr('class');
-        
-        console.log('the index for this profile is '+ the_index);
-        $('.profile_child').eq(the_index-1).append(profile_value_box);
+
+        console.log('the index for this profile is ' + the_index);
+        $('.profile_child').eq(the_index - 2).append(profile_value_box);
         // $('.profile_child').eq(3).remove();
+    });
+
+
+    $('#attribute_add').click(function () {
+        console.log('attribute add pressed');
+
+        var attribute_box = $('#attribute_child').clone();
+        // var this_elem = $(this);
+
+
+        // the_index = $(this).parent().parent().parent().prevAll().length;
+
+        // all_profiles = document.getElementsByClassName("profile_child");
+
+
+        // console.log('the index for this profile is ' + the_index);
+        // $('.profile_child').eq(the_index - 2).append(profile_value_box);
+        $('.attribute_parent').append(attribute_box);
+
     });
 
 
