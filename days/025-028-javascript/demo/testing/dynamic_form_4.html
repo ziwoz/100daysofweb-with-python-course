@@ -27,7 +27,6 @@
 
             <div class="profile_child" id="profile_child" style="padding-bottom: 15px; padding-top: 15px;">
 
-                <!-- <div class="profile_grand_child"> -->
 
                 <div class="col-sm-10">
                     <input type="text" class='profile_name' name="profile_name" placeholder="Profile_name"
@@ -45,7 +44,6 @@
                         value='111'>
                 </div>
 
-                <!-- </div> -->
 
             </div>
         </div>
@@ -105,7 +103,6 @@
 
     $('#prof_add_button').click(function () {
         var $profile_box = $('.profile_child').eq(0).clone(true).find("input[type='text']").val("").end();
-        // $profile_box('.profile_value').remove(); // get the match and remove
         $profile_box.find('.profile_value').slice(0, -1).remove();
 
         $('#profile_parent').append($profile_box);
@@ -117,13 +114,11 @@
         var this_elem = $(this);
         the_index = $(this).parent().parent().prevAll().length;
         all_profiles = document.getElementsByClassName("profile_child");
-        // console.log('the index for this profile is ' + the_index);
         $('.profile_child').eq(the_index - 2).append(profile_value_box);
     });
 
 
     $('#attribute_add').click(function () {
-        // console.log('attribute add pressed');
         var attribute_box = $('#attribute_child').clone();
         $('.attribute_parent').append(attribute_box);
 
@@ -131,8 +126,9 @@
 
     $('#class_builder_submit').click(function () {
 
+        profile_attribute_obj = {};
+
         console.log('form is submitted');
-        // alert('he.');
         var class_name = document.getElementById('class_name');
 
         // getting attribute details
@@ -157,16 +153,12 @@
             attributes_list.push(attribute_dict);
 
         };
-        json_out = JSON.stringify(attributes_list)
-
-        // console.log(json_out);
 
         // getting profile details
 
         var all_profiles = document.getElementsByClassName('profile_child');
         var profile_list = [];
 
-        // console.log(all_profiles);
         for (profiles of all_profiles) {
             var profile_name = profiles.getElementsByClassName('profile_name')[0].value;
             var profile_dict = {};
@@ -180,16 +172,17 @@
                     profile_dict.values.push(prof_value);
                 }
                 else {
-                    console.log('fainled condition' + values); //some error is coming
+                    console.log('failed condition' + values); //some error is coming
                 };
 
 
             };
             profile_list.push(profile_dict);
         };
-
-        json_out2 = JSON.stringify(profile_list);
-        console.log(json_out2)
+        profile_attribute_obj.attributes = attributes_list
+        profile_attribute_obj.profiles = profile_list
+        json_out = JSON.stringify(profile_attribute_obj)
+        console.log(json_out)
 
     });
 
