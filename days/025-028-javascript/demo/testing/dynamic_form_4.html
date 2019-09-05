@@ -27,24 +27,25 @@
 
             <div class="profile_child" id="profile_child" style="padding-bottom: 15px; padding-top: 15px;">
 
-                <div class="form-control" class="profile_grand_child">
+                <!-- <div class="profile_grand_child"> -->
 
-                    <div class="col-sm-10">
-                        <input type="text" class='profile_name' name="profile_name" placeholder="Profile_name" value='profile1'>
-                    </div>
-
-                    <div>
-                        <button type="button" class="prof_value_add">Add Value</button>
-                    </div>
-
-                    <label style="text-align: left; width:15%" class="control-label col-sm-2"
-                        for="profile_value">Profile Value</label>
-                    <div class="col-sm-10" id="profile_value">
-                        <input type="text" name="profile_value" id="profile_value"
-                            placeholder="Profile_value" value='111'>
-                    </div>
-
+                <div class="col-sm-10">
+                    <input type="text" class='profile_name' name="profile_name" placeholder="Profile_name"
+                        value='profile1'>
                 </div>
+
+                <div>
+                    <button type="button" class="prof_value_add">Add Value</button>
+                </div>
+
+                <label style="text-align: left; width:15%" class="control-label col-sm-2" for="profile_value">Profile
+                    Value</label>
+                <div class="profile_values">
+                    <input type="text" name="profile_value" class="profile_value" placeholder="Profile_value"
+                        value='111'>
+                </div>
+
+                <!-- </div> -->
 
             </div>
         </div>
@@ -85,7 +86,7 @@
             </div>
         </div>
 
-        <button type="submit" id='class_builder_submit'>submit Form</button>
+        <button type="button" id='class_builder_submit'>submit Form</button>
 
     </form>
 
@@ -103,15 +104,18 @@
     });
 
     $('#prof_add_button').click(function () {
-        var profile_box = $('#profile_child').clone(true).find("input[type='text']").val("").end();
-        $('#profile_parent').append(profile_box);
+        var $profile_box = $('.profile_child').eq(0).clone(true).find("input[type='text']").val("").end();
+        // $profile_box('.profile_value').remove(); // get the match and remove
+        $profile_box.find('.profile_value').slice(0, -1).remove();
+
+        $('#profile_parent').append($profile_box);
 
     });
 
-    $('#prof_value_add').click(function () {
-        var profile_value_box = $('#profile_value').clone().find("input[type='text']").val("").end();
+    $('.prof_value_add').click(function () {
+        var profile_value_box = $('.profile_values').eq(0).clone().find("input[type='text']").val("").end();
         var this_elem = $(this);
-        the_index = $(this).parent().parent().parent().prevAll().length;
+        the_index = $(this).parent().parent().prevAll().length;
         all_profiles = document.getElementsByClassName("profile_child");
         // console.log('the index for this profile is ' + the_index);
         $('.profile_child').eq(the_index - 2).append(profile_value_box);
@@ -127,7 +131,8 @@
 
     $('#class_builder_submit').click(function () {
 
-        // console.log('form is submitted');
+        console.log('form is submitted');
+        // alert('he.');
         var class_name = document.getElementById('class_name');
 
         // getting attribute details
@@ -154,13 +159,37 @@
         };
         json_out = JSON.stringify(attributes_list)
 
-        console.log(json_out);
+        // console.log(json_out);
 
         // getting profile details
 
-        // var all_profiles = document.getElementsByClassName('profile_grand_child');
+        var all_profiles = document.getElementsByClassName('profile_child');
+        var profile_list = [];
 
         // console.log(all_profiles);
+        for (profiles of all_profiles) {
+            var profile_name = profiles.getElementsByClassName('profile_name')[0].value;
+            var profile_dict = {};
+            profile_dict.name = profile_name;
+            profile_dict.values = [];
+            var all_values = profiles.getElementsByClassName('profile_values');
+            for (values of all_values) {
+                var prof_first_value = values.getElementsByClassName('profile_value')[0];
+                if (prof_first_value) {
+                    var prof_value = prof_first_value.value;
+                    profile_dict.values.push(prof_value);
+                }
+                else {
+                    console.log('fainled condition' + values); //some error is coming
+                };
+
+
+            };
+            profile_list.push(profile_dict);
+        };
+
+        json_out2 = JSON.stringify(profile_list);
+        console.log(json_out2)
 
     });
 
